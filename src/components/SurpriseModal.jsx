@@ -1,7 +1,18 @@
-// src/components/SurpriseModal.jsx
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function SurpriseModal({ isOpen, onClose }) {
+const SurpriseModal = ({ isOpen, onClose }) => {
+  const images = [
+    '/images/cutepeople.png',
+    '/images/mk.jpg'
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleToggleImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -10,16 +21,22 @@ export default function SurpriseModal({ isOpen, onClose }) {
         className="bg-white p-6 rounded-2xl shadow-lg text-center max-w-sm w-full"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 120 }}
+        transition={{ type: 'spring', stiffness: 120 }}
       >
-        <motion.img
-          src="https://cdn.pixabay.com/photo/2019/02/25/19/16/brownie-4020334_1280.jpg"
-          alt="Surprise"
-          className="rounded-lg mb-4 mx-auto w-[300px] h-[200px]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        />
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={images[currentIndex]}
+            src={images[currentIndex]}
+            alt="Surprise"
+            className="rounded-lg mb-4 mx-auto cursor-pointer w-full h-auto"
+            onClick={handleToggleImage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          />
+        </AnimatePresence>
+
         <h2 className="text-xl font-semibold text-pink-600 mb-2">
           เซอร์ไพรส์! 🎁
         </h2>
@@ -35,4 +52,6 @@ export default function SurpriseModal({ isOpen, onClose }) {
       </motion.div>
     </div>
   );
-}
+};
+
+export default SurpriseModal;

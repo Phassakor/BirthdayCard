@@ -20,7 +20,7 @@ export default function BirthdayCard() {
       </motion.h1>
 
       <motion.img
-        src="https://cdn.pixabay.com/photo/2019/02/25/19/16/brownie-4020334_1280.jpg"
+        src="/images/cutenures.png"
         alt="Cute"
         className="rounded-xl shadow-lg mb-4 w-[300px] h-[200px]"
         initial={{ scale: 0 }}
